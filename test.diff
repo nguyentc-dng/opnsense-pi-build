@@ -1,0 +1,25 @@
+diff --git a/build/core.sh b/build/core.sh
+index ce4901b..7807d45 100644
+--- a/build/core.sh
++++ b/build/core.sh
+@@ -63,6 +63,7 @@ for BRANCH in ${EXTRABRANCH} ${COREBRANCH}; do
+ 	CORE_NAME=$(make -C ${STAGEDIR}${COREDIR} ${CORE_ARGS} -v CORE_NAME)
+ 	CORE_DEPS=$(make -C ${STAGEDIR}${COREDIR} ${CORE_ARGS} -v CORE_DEPENDS)
+ 	CORE_VERS=$(make -C ${STAGEDIR}${COREDIR} ${CORE_ARGS} -v CORE_PKGVERSION)
++        make -C ${STAGEDIR}${COREDIR} ${CORE_ARGS} plist-fix
+ 
+ 	for REMOVED in ${@}; do
+ 		if [ ${REMOVED} = ${CORE_NAME} ]; then
+diff --git a/device/RPI.conf b/device/RPI.conf
+index 3b252b4..ef6bb46 100644
+--- a/device/RPI.conf
++++ b/device/RPI.conf
+@@ -29,7 +29,7 @@ arm_install_uboot()
+ 	cp -p ${ARM_FIRMWARE_DIR}/bcm2711-rpi-cm*.dtb ${STAGEDIR}/boot/msdos
+ 	cp -p ${ARM_FIRMWARE_DIR}/bootcode.bin ${STAGEDIR}/boot/msdos
+ 	cp -p ${ARM_FIRMWARE_DIR}/config_rpi3.txt ${STAGEDIR}/boot/msdos
+-	cp -p ${ARM_FIRMWARE_DIR}/config_rpi4.txt ${STAGEDIR}/boot/msdos
++	cp -p ${ARM_FIRMWARE_DIR}/config_rpi4.txt ${STAGEDIR}/boot/msdos/config.txt
+ 	cp -p ${ARM_FIRMWARE_DIR}/fixup*.dat ${STAGEDIR}/boot/msdos
+ 	cp -p ${ARM_FIRMWARE_DIR}/start*.elf ${STAGEDIR}/boot/msdos
+ 	cp -pr ${ARM_FIRMWARE_DIR}/overlays ${STAGEDIR}/boot/msdos/overlays
