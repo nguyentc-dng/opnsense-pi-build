@@ -24,4 +24,9 @@ jobs:
         run: |
           cd /usr/tools/
           make update
+
+      - name: Build base
+        run: |
+          cd /usr/tools/
+          make base DEVICE=RPI
           
