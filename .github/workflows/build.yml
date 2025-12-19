@@ -15,5 +15,13 @@ jobs:
       - name: Checkout build source
         uses: actions/checkout@v4
 
-      - name: Check $GITHUB_WORKSPACE
-        run: echo $GITHUB_WORKSPACE
+      - name: Copy build tools to /usr
+        run: |
+          cd /usr/
+          cp $GITHUB_WORKSPACE /usr/tools
+
+      - name: Update build tools
+        run: |
+          cd tools/
+          make update
+          
