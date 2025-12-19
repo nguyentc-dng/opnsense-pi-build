@@ -22,6 +22,6 @@ jobs:
 
       - name: Update build tools
         run: |
-          cd tools/
+          cd /usr/tools/
           make update
           
