@@ -16,7 +16,39 @@ jobs:
       - name: Checkout build source
         uses: actions/checkout@v4
 
+      - name: Copy build tools to /usr
+        run: |
+          cd /usr/
+          rm -rf ./tools/
+          cp -r $GITHUB_WORKSPACE /usr/tools
 
+      - name: Update build tools
+        run: |
+          cd /usr/tools/
+          make update
+
+      - name: Clean build directory before build
+        run: rm -rf /usr/local/opnsense
+
+      - name: Build base
+        run: |
+          cd /usr/tools/
+          make base DEVICE=RPI4
+          
+      - name: Build kernel
+        run: |
+          cd /usr/tools/
+          make kernel DEVICE=RPI4
+
+      - name: Build packages
+        run: |
+          cd /usr/tools/
+          make packages DEVICE=RPI4        
+
+      - name: Build image
+        run: |
+          cd /usr/tools/
+          make arm-4G DEVICE=RPI4
 
       - name: Install zip if it's not installed
         run: pkg install -y zip
