@@ -40,6 +40,9 @@ jobs:
           cd /usr/tools/
           make kernel DEVICE=RPI4
 
+      - name: Install required pkg version
+        run: make -C /usr/ports/ports-mgmt/pkg clean all reinstall
+
       - name: Build packages
         run: |
           cd /usr/tools/
